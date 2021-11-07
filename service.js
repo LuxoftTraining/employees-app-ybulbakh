@@ -10,12 +10,13 @@ let findByName = (name = '', surname = '') => {
     return result
 }
 
-let addEmloyee = (name, surname) => {
+let addEmployee = (name, surname) => {
     if (!name || !surname) throw 'name or surname is not defined'
     let id = DATA.employees.reduce(function (a, b) {
         return a.id > b.id ? a : b
     }).id + 1
     DATA.employees.push({'id': id, 'name': name, 'surname': surname})
+    return id
 }
 
 let removeEmployee = (id) => {
@@ -86,7 +87,7 @@ let getEmployeeInfo = (id) => {
 }
 
 let testEmployee = () => {
-    addEmloyee('Andrew', 'Jackson')
+    addEmployee('Andrew', 'Jackson')
     removeEmployee(5)
     addPhone(7, '911')
     addPhone(7, '922')

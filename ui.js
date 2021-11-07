@@ -27,5 +27,7 @@ function addEmployeeUI() {
     if (!name) $('addEmployeeFormErrorMessage').innerHTML += 'ERROR name<br>'
     if (!surname) $('addEmployeeFormErrorMessage').innerHTML += 'ERROR surname<br>'
     const id = addEmployee(name, surname);
+    document.getElementById("name").value = "";
+    document.getElementById("surname").value = "";
     showEmployees(DATA.employees);
 }
