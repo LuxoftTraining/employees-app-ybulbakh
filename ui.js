@@ -4,7 +4,7 @@ let $ = (id) => {
     return document.getElementById(id)
 }
 
-runUi=(employees)=>{
+runUi = (employees) => {
     showEmployees(employees)
 }
 
@@ -20,9 +20,12 @@ showEmployees = (employees) => {
     }
     $(PLACEHOLDER).innerHTML += '</ul>'
 }
+
 function addEmployeeUI() {
     const name = document.getElementById("name").value;
     const surname = document.getElementById("surname").value;
+    if (!name) $('addEmployeeFormErrorMessage').innerHTML += 'ERROR name<br>'
+    if (!surname) $('addEmployeeFormErrorMessage').innerHTML += 'ERROR surname<br>'
     const id = addEmployee(name, surname);
     showEmployees(DATA.employees);
 }
