@@ -30,16 +30,27 @@ showEmployees = (employees) => {
         for (let employee of array[managerid]) {
             const ul2 = document.createElement('ul')
             li.appendChild(ul2)
+
             const li2 = document.createElement('li')
             ul2.appendChild(li2)
             li2.innerHTML = employee.name + " " + employee.surname;
+
+            const managerSelect = document.createElement('select')
+            managerSelect.id = 'select' + employee.id
+            fillSelect(managerSelect, getEmployeesOptions(), employee.managerRef)
+            managerSelect.addEventListener('change', () => {
+                    employee.managerRef = managerSelect.value
+                    showEmployees(employees)
+                }
+            )
+            li2.appendChild(managerSelect)
+
             const removeButton = document.createElement("button")
             removeButton.innerHTML = "Delete";
             removeButton.addEventListener('click',
                 () => removeEmployeeUI(employee.id));
             li2.appendChild(removeButton);
         }
-
         $(PLACEHOLDER).appendChild(ul)
     }
 }
@@ -64,11 +75,16 @@ let removeEmployeeUI = (id) => {
 }
 
 let fillSelect = (select, values, selectedValue) => {
+    let option = document.createElement('option')
+    option.text = 'Undefined'
+    option.value = 0
+    select.add(option)
+
     for (let item of values) {
         let option = document.createElement('option')
         option.text = item.text
         option.value = item.value
-        if (selectedValue === option.value) option.selected = true;
+        if (selectedValue === +option.value) option.selected = true;
         select.add(option)
     }
 }
