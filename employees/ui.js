@@ -1,4 +1,5 @@
 import {getEmployees, removeEmployee, addEmployee, findById, searchEmployees, setEmployeeManager} from './service';
+import {Employee,jsonToEmployees} from "./model/Employee"
 
 const PLACEHOLDER = 'employeesPlaceholder'
 
@@ -33,10 +34,10 @@ function showEmployees(employees) {
     clearEmployeesPlaceholder();
     const ul = document.createElement("ul");
 
-    for (let employee of employees) {
+    for (let employee of jsonToEmployees(employees)) {
         const li = document.createElement("li");
         ul.appendChild(li);
-        li.innerHTML = employee.name + " " + employee.surname;
+        li.innerHTML = employee;
 
         if (employee.managerRef) {
             let manager = findById(employee.managerRef);

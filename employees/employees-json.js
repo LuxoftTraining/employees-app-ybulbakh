@@ -10,7 +10,8 @@ export default {
             id: 2,
             name: "John ",
             surname: "Adams",
-            department: "GOV"
+            department: "GOV",
+            dateOfBirth: "2009-07-09"
         },
         {
             id: 3,
