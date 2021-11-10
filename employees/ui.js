@@ -60,8 +60,14 @@ function addEmployeeUI() {
     const surname = document.getElementById("surname").value;
     const manager = document.getElementById("managerSelect").value;
 
-    if (!name) $('addEmployeeFormErrorMessage').innerHTML += 'ERROR name<br>'
-    if (!surname) $('addEmployeeFormErrorMessage').innerHTML += 'ERROR surname<br>'
+    if (!name) {
+        $('addEmployeeFormErrorMessage').innerHTML += 'ERROR name<br>'
+        document.getElementById("name").style.backgroundColor = '#FFEEEE';
+    }
+    if (!surname){
+        $('addEmployeeFormErrorMessage').innerHTML += 'ERROR surname<br>'
+        document.getElementById("surname").style.backgroundColor = '#FFEEEE';
+    }
     const id = addEmployee(name, surname);
     setEmployeeManager(id, manager)
     document.getElementById("name").value = "";
