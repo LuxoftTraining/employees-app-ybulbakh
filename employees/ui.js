@@ -1,22 +1,23 @@
+import {getEmployees, removeEmployee, addEmployee, findById, searchEmployees, setEmployeeManager} from './service';
+
 const PLACEHOLDER = 'employeesPlaceholder'
 
 let $ = (id) => {
     return document.getElementById(id)
 }
 
-let runUi = (employees) => {
-    showEmployees(employees)
+export let runUi = () => {
+    showEmployees(getEmployees())
     fillSelect($('managerSelect'), getEmployeesOptions())
     $("searchButton").click();
 
     for (let input of document.getElementsByTagName('input')) {
-        console.log(input.parentNode.parentNode)
         // input.addEventListener('keypress', (e) => {
         //         if (e.key === 'Enter' && input.parentNode.parentNode.tagName === 'DIV') $('add').click()
         //         if (e.key === 'Enter' && input.parentNode.parentNode.tagName === 'FORM') $('find').click()
         //     })
-        input.addEventListener('keyup', () => {
-            if (input.parentNode.parentNode.tagName === 'DIV') $('add').click()
+        input.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter' && input.parentNode.parentNode.tagName === 'DIV') $('add').click()
             if (input.parentNode.parentNode.tagName === 'FORM') $('find').click()
         })
     }
@@ -28,49 +29,37 @@ let clearEmployeesPlaceholder = () => {
     document.getElementById(PLACEHOLDER).innerHTML = '';
 }
 
-showEmployees = (employees) => {
+function showEmployees(employees) {
     clearEmployeesPlaceholder();
-    const ul = document.createElement('ul')
-    let array = []
+    const ul = document.createElement("ul");
+
     for (let employee of employees) {
-        let manager = employee.managerRef || 0
-        !array[manager] ? array[manager] = [] : ''
-        array[manager].push(employee)
-    }
-    for (let managerid in array) {
-        let manager = (managerid > 0) ? findById(+managerid) : false
-        const li = document.createElement('li')
-        ul.appendChild(li)
-        li.innerHTML = '<b>' + (manager ? 'Manager ' + manager.name + " " + manager.surname : 'without manager') + '</b>'
-        for (let employee of array[managerid]) {
-            const ul2 = document.createElement('ul')
-            li.appendChild(ul2)
+        const li = document.createElement("li");
+        ul.appendChild(li);
+        li.innerHTML = employee.name + " " + employee.surname;
 
-            const li2 = document.createElement('li')
-            ul2.appendChild(li2)
-            li2.innerHTML = employee.name + " " + employee.surname;
-
-            const managerSelect = document.createElement('select')
-            managerSelect.id = 'select' + employee.id
-            fillSelect(managerSelect, getEmployeesOptions(), employee.managerRef)
-            managerSelect.addEventListener('change', () => {
-                    employee.managerRef = managerSelect.value
-                    showEmployees(employees)
-                }
-            )
-            li2.appendChild(managerSelect)
-
-            const removeButton = document.createElement("button")
-            removeButton.innerHTML = "Delete";
-            removeButton.addEventListener('click',
-                () => removeEmployeeUI(employee.id));
-            li2.appendChild(removeButton);
+        if (employee.managerRef) {
+            let manager = findById(employee.managerRef);
+            const managerSpan = document.createElement("span");
+            const managerSelect = document.createElement("select");
+            fillSelect(managerSelect, getEmployeesOptions(), employee.managerRef);
+            managerSelect.addEventListener('change',
+                () => employee.managerRef = managerSelect.value);
+            managerSpan.innerHTML = " <b>Manager:</b> ";
+            li.appendChild(managerSpan);
+            li.appendChild(managerSelect);
         }
-        $(PLACEHOLDER).appendChild(ul)
+
+        const removeButton = document.createElement("button");
+        removeButton.innerHTML = "Удалить";
+        removeButton.addEventListener('click',
+            () => removeEmployeeUI(employee.id));
+        li.appendChild(removeButton);
     }
+    document.getElementById(PLACEHOLDER).appendChild(ul);
 }
 
-function addEmployeeUI() {
+export function addEmployeeUI() {
     const name = document.getElementById("name").value;
     const surname = document.getElementById("surname").value;
     const manager = document.getElementById("managerSelect").value;
@@ -87,12 +76,12 @@ function addEmployeeUI() {
     setEmployeeManager(id, manager)
     document.getElementById("name").value = "";
     document.getElementById("surname").value = "";
-    showEmployees(DATA.employees);
+    showEmployees(getEmployees());
 }
 
 let removeEmployeeUI = (id) => {
     removeEmployee(id)
-    showEmployees(DATA.employees)
+    showEmployees(getEmployees())
 }
 
 let fillSelect = (select, values, selectedValue) => {
@@ -112,13 +101,13 @@ let fillSelect = (select, values, selectedValue) => {
 
 let getEmployeesOptions = () => {
     let result = []
-    for (let item of DATA.employees) {
+    for (let item of getEmployees()) {
         result.push({value: item.id, text: item.name + ' ' + item.surname})
     }
     return result
 }
 
-function searchEmployeeUI() {
+export function searchEmployeeUI() {
     const name = document.getElementById("nameSearch").value;
     const surname = document.getElementById("surnameSearch").value;
     const managerRef = document.getElementById("managerSearch").value;
@@ -127,8 +116,8 @@ function searchEmployeeUI() {
     showEmployees(employees);
 }
 
-let openTab = (evt, id) => {
-    var i, tabcontent, tablinks;
+export let openTab = (evt, id) => {
+    let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";

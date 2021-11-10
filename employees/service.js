@@ -1,4 +1,10 @@
+import {DATA} from './employees-json';
+
 let employeeMap = {}
+
+export function getEmployees() {
+    return DATA.employees;
+}
 
 let findByName = (name = '', surname = '') => {
     let result = []
@@ -10,7 +16,7 @@ let findByName = (name = '', surname = '') => {
     return result
 }
 
-let addEmployee = (name, surname) => {
+export let addEmployee = (name, surname) => {
     if (!name || !surname) throw 'name or surname is not defined'
     let id = DATA.employees.reduce(function (a, b) {
         return a.id > b.id ? a : b
@@ -19,7 +25,7 @@ let addEmployee = (name, surname) => {
     return id
 }
 
-let removeEmployee = (id) => {
+export let removeEmployee = (id) => {
     if (!id) throw 'id not defined'
     for (let employee of DATA.employees) {
         if (employee.id === id) {
@@ -37,14 +43,15 @@ let showEmployee = (employee) => {
     }
 }
 
-showEmployees = () => {
+
+function showEmployees() {
     for (let employee of DATA.employees) {
         showEmployee(employee)
         console.log(employee);
     }
 }
 
-let findById = (id) => {
+export let findById = (id) => {
     if (!id) throw 'id not defined'
     if (employeeMap[id]) return employeeMap[id]
     for (let employee of DATA.employees) {
@@ -81,9 +88,7 @@ let formatDate = (date) => {
 
 let getEmployeeInfo = (id) => {
     let employee = findById(id)
-    result = employee.name + ' ' + employee.surname + ' was born ' + formatDate(employee.dateOfBirth) + ' (' + getAge(7) + ' years). ' + 'His phones: ' + employee.phones.toString();
-
-    return result
+    return employee.name + ' ' + employee.surname + ' was born ' + formatDate(employee.dateOfBirth) + ' (' + getAge(7) + ' years). ' + 'His phones: ' + employee.phones.toString();
 }
 
 let testEmployee = () => {
@@ -104,16 +109,16 @@ let getEmployeeJSON = (id) => {
 
 //testEmployee()
 
-let setEmployeeManager = (id, managerId) => {
+export let setEmployeeManager = (id, managerId) => {
     let employee = findById(id)
     employee.managerRef = managerId
 }
 
-function searchEmployees(name, surname, managerRef) {
+export function searchEmployees(name, surname, managerRef) {
     let results = [];
     for (let e of DATA.employees) {
-        if ((!name || e.name.indexOf(name)>=0) &&
-            (!surname || e.surname.indexOf(surname)>=0) &&
+        if ((!name || e.name.indexOf(name) >= 0) &&
+            (!surname || e.surname.indexOf(surname) >= 0) &&
             (!managerRef || e.managerRef === managerRef)) {
             results.push(e);
         }
