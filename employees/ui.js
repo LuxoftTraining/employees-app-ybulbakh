@@ -23,7 +23,7 @@ showEmployees = (employees) => {
         array[manager].push(employee)
     }
     for (let managerid in array) {
-        let manager = findById(managerid)
+        let manager = (managerid>0) ? findById(+managerid) : false
         const li = document.createElement('li')
         ul.appendChild(li)
         li.innerHTML = '<b>' + (manager ? 'Manager ' + manager.name + " " + manager.surname : 'without manager') + '</b>'
@@ -95,4 +95,13 @@ let getEmployeesOptions = () => {
         result.push({value: item.id, text: item.name + ' ' + item.surname})
     }
     return result
+}
+
+function searchEmployeeUI() {
+    const name = document.getElementById("nameSearch").value;
+    const surname = document.getElementById("surnameSearch").value;
+    const managerRef = document.getElementById("managerSearch").value;
+
+    const employees = searchEmployees(name, surname, managerRef);
+    showEmployees(employees);
 }

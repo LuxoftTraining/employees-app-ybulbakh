@@ -48,7 +48,7 @@ let findById = (id) => {
     if (!id) throw 'id not defined'
     if (employeeMap[id]) return employeeMap[id]
     for (let employee of DATA.employees) {
-        if (employee.id === +id) {
+        if (employee.id === id) {
             employeeMap[id] = employee
             return employee
         }
@@ -107,4 +107,16 @@ let getEmployeeJSON = (id) => {
 let setEmployeeManager = (id, managerId) => {
     let employee = findById(id)
     employee.managerRef=managerId
+}
+
+function searchEmployees(name, surname, managerRef) {
+    let results = [];
+    for (let e of DATA.employees) {
+        if ((!name || e.name===name) &&
+            (!surname || e.surname===surname) &&
+            (!managerRef || e.managerRef===managerRef)) {
+            results.push(e);
+        }
+    }
+    return results;
 }

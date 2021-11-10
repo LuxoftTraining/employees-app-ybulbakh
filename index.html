@@ -5,8 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<div id="employeesPlaceholder"></div>
 
+<div id="employeesPlaceholder"></div>
+<hr>
 <div id="addEmployeeFormErrorMessage"></div>
 <div>
     <p><label for="name">Name</label>: <input id="name" placeholder="Name"></p>
@@ -14,6 +15,18 @@
     <p><label for="managerSelect">Manager</label>:<select id="managerSelect"></select></p>
     <p><button onclick="addEmployeeUI()">Add</button></p>
 </div>
+<hr>
+<form>
+    <p>Find employee:</p>
+    <p><label for="nameSearch">Name</label>: <input id="nameSearch" placeholder="Name" size="30"></p>
+    <p><label for="surnameSearch">Surname</label>: <input id="surnameSearch" placeholder="Surname" size="30"></p>
+
+    <p>Find by manager:</p>
+    <p><label for="managerSearch">Manager</label>: <select id="managerSearch"></select></p>
+
+    <p><button type=button onclick="searchEmployeeUI()">Find</button></p>
+    <input type="reset" value="Reset form">
+</form>
 
 <script src="employees/employees-json.js"></script>
 <script src="employees/service.js"></script>
