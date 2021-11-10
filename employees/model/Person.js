@@ -43,4 +43,7 @@ export class Person {
   ${this.dateOfBirth} ${this.age} ${phones}`;
     }
 
+    static fromJSON(obj) {
+        return Object.assign(new Person(), obj)
+    }
 }
