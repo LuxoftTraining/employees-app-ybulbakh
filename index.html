@@ -3,34 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
-<div id="employeesPlaceholder"></div>
-<hr>
-<div id="addEmployeeFormErrorMessage"></div>
-<div>
-    <p><label for="name">Name</label>: <input id="name" placeholder="Name"></p>
-    <p><label for="surname">Surname</label>: <input id="surname" placeholder="Surname"></p>
-    <p><label for="managerSelect">Manager</label>:<select id="managerSelect"></select></p>
-    <p><button onclick="addEmployeeUI()">Add</button></p>
+<div class="tab">
+    <button id="searchButton" class="tablinks"
+            onclick="openTab(event, 'searchPane')">Find employee
+    </button>
+    <button class="tablinks"
+            onclick="openTab(event, 'addPane')">Add employee
+    </button>
 </div>
-<hr>
-<form>
-    <p>Find employee:</p>
-    <p><label for="nameSearch">Name</label>: <input id="nameSearch" placeholder="Name" size="30"></p>
-    <p><label for="surnameSearch">Surname</label>: <input id="surnameSearch" placeholder="Surname" size="30"></p>
 
-    <p>Find by manager:</p>
-    <p><label for="managerSearch">Manager</label>: <select id="managerSearch"></select></p>
+<div id="addPane" class="tabcontent">
+    <div id="addEmployeeFormErrorMessage"></div>
+    <div>
+        <p><label for="name">Name</label>: <input id="name" placeholder="Name"></p>
+        <p><label for="surname">Surname</label>: <input id="surname" placeholder="Surname"></p>
+        <p><label for="managerSelect">Manager</label>:<select id="managerSelect"></select></p>
+        <p>
+            <button onclick="addEmployeeUI()">Add</button>
+        </p>
+    </div>
+    <div id="employeesPlaceholder"></div>
+</div>
 
-    <p><button type=button onclick="searchEmployeeUI()">Find</button></p>
-    <input type="reset" value="Reset form">
-</form>
+<div id="searchPane" class="tabcontent">
+    <form>
+        <p>Find employee:</p>
+        <p><label for="nameSearch">Name</label>: <input id="nameSearch" placeholder="Name" size="30"></p>
+        <p><label for="surnameSearch">Surname</label>: <input id="surnameSearch" placeholder="Surname" size="30"></p>
 
-<script src="employees/employees-json.js"></script>
-<script src="employees/service.js"></script>
-<script src="employees/ui.js"></script>
-<script>runUi(DATA.employees)</script>
+        <p>Find by manager:</p>
+        <p><label for="managerSearch">Manager</label>: <select id="managerSearch"></select></p>
+
+        <p>
+            <button type=button onclick="searchEmployeeUI()">Find</button>
+        </p>
+        <input type="reset" value="Reset form">
+    </form>
+</div>
+
+    <script src="employees/employees-json.js"></script>
+    <script src="employees/service.js"></script>
+    <script src="employees/ui.js"></script>
+    <script>runUi(DATA.employees)</script>
 </body>
 </html>

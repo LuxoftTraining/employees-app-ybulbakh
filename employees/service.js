@@ -106,15 +106,15 @@ let getEmployeeJSON = (id) => {
 
 let setEmployeeManager = (id, managerId) => {
     let employee = findById(id)
-    employee.managerRef=managerId
+    employee.managerRef = managerId
 }
 
 function searchEmployees(name, surname, managerRef) {
     let results = [];
     for (let e of DATA.employees) {
-        if ((!name || e.name===name) &&
-            (!surname || e.surname===surname) &&
-            (!managerRef || e.managerRef===managerRef)) {
+        if ((!name || e.name === name) &&
+            (!surname || e.surname === surname) &&
+            (!managerRef || e.managerRef === managerRef)) {
             results.push(e);
         }
     }

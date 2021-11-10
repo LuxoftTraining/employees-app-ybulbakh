@@ -7,6 +7,7 @@ let $ = (id) => {
 let runUi = (employees) => {
     showEmployees(employees)
     fillSelect($('managerSelect'), getEmployeesOptions())
+    $("searchButton").click();
 }
 
 let clearEmployeesPlaceholder = () => {
@@ -23,7 +24,7 @@ showEmployees = (employees) => {
         array[manager].push(employee)
     }
     for (let managerid in array) {
-        let manager = (managerid>0) ? findById(+managerid) : false
+        let manager = (managerid > 0) ? findById(+managerid) : false
         const li = document.createElement('li')
         ul.appendChild(li)
         li.innerHTML = '<b>' + (manager ? 'Manager ' + manager.name + " " + manager.surname : 'without manager') + '</b>'
@@ -64,7 +65,7 @@ function addEmployeeUI() {
         $('addEmployeeFormErrorMessage').innerHTML += 'ERROR name<br>'
         document.getElementById("name").style.backgroundColor = '#FFEEEE';
     }
-    if (!surname){
+    if (!surname) {
         $('addEmployeeFormErrorMessage').innerHTML += 'ERROR surname<br>'
         document.getElementById("surname").style.backgroundColor = '#FFEEEE';
     }
@@ -83,7 +84,7 @@ let removeEmployeeUI = (id) => {
 let fillSelect = (select, values, selectedValue) => {
     let option = document.createElement('option')
     option.text = 'Undefined'
-    option.value = 0
+    option.value = '0'
     select.add(option)
 
     for (let item of values) {
@@ -110,4 +111,18 @@ function searchEmployeeUI() {
 
     const employees = searchEmployees(name, surname, managerRef);
     showEmployees(employees);
+}
+
+let openTab = (evt, id) => {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    evt.currentTarget.className += " active";
+    $(id).style.display = 'block'
 }
