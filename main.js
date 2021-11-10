@@ -1,4 +1,5 @@
 import {runUi, addEmployeeUI, openTab, searchEmployeeUI} from './employees/ui';
+import './style.css';
 
 window.addEmployeeUI = addEmployeeUI;
 window.openTab = openTab;
