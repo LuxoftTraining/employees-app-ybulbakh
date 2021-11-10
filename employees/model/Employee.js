@@ -1,5 +1,6 @@
 import {Person} from "./Person";
 import {getEmployees} from "../service";
+
 export class Employee extends Person {
     constructor(name, surname, department) {
         super(name, surname);
@@ -9,6 +10,39 @@ export class Employee extends Person {
     static fromJSON(obj) {
         return Object.assign(new Employee(), obj)
     }
+
+    getDepartments = () => {
+        let dep = []
+        return getEmployees()
+            .map(e => e.department)
+            .filter(d => !dep.includes(d) ? dep.push(d) : false)
+    }
+
+    amountInDep(dep) {
+        return getEmployees()
+            .map(e => e.department)
+            .filter(d => d === dep)
+            .length;
+    }
+
+    sumSalaryInDep(dep) {
+        return getEmployees()
+            .filter(e => e.department === dep)
+            .map(e => e.salary)
+            .reduce((a, b) => a + b);
+    }
+
+    avgSalaryInDep(dep) {
+        return this.sumSalaryInDep(dep) / this.amountInDep(dep)
+    }
+
+    maxSalaryInDep(dep) {
+        return getEmployees()
+            .filter(e => e.department === dep)
+            .map(e => e.salary)
+            .reduce((a, b) => b > a ? a = b : a = a);
+    }
+
 }
 
 export function jsonToEmployees(employeesJSON) {
@@ -21,6 +55,6 @@ export function jsonToEmployees(employeesJSON) {
 
 window.Employee = Employee;
 
-window.allEmployees = function() {
+window.allEmployees = function () {
     return jsonToEmployees(getEmployees());
 }

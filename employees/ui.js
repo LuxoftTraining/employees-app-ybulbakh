@@ -1,5 +1,5 @@
 import {getEmployees, removeEmployee, addEmployee, findById, searchEmployees, setEmployeeManager} from './service';
-import {Employee,jsonToEmployees} from "./model/Employee"
+import {Employee, jsonToEmployees} from "./model/Employee"
 
 const PLACEHOLDER = 'employeesPlaceholder'
 
@@ -58,6 +58,25 @@ function showEmployees(employees) {
         li.appendChild(removeButton);
     }
     document.getElementById(PLACEHOLDER).appendChild(ul);
+    const total = document.createElement("p")
+    document.getElementById(PLACEHOLDER).appendChild(total);
+
+    const employee = new Employee();
+    const departments = employee.getDepartments()
+
+    total.innerHTML = 'Departments: ' + departments + "\r\n"
+    for (let dep of departments) {
+        const d = document.createElement("p")
+        total.appendChild(d);
+        d.innerHTML = dep
+
+        const ul = document.createElement("ul");
+        d.appendChild(ul);
+        ul.appendChild(document.createElement("li")).innerHTML = 'Amount: ' + employee.amountInDep(dep);
+        ul.appendChild(document.createElement("li")).innerHTML = 'Sum Salary: ' + employee.sumSalaryInDep(dep);
+        ul.appendChild(document.createElement("li")).innerHTML = 'Avg Salary: ' + employee.avgSalaryInDep(dep);
+        ul.appendChild(document.createElement("li")).innerHTML = 'Max Salary: ' + employee.maxSalaryInDep(dep);
+    }
 }
 
 export function addEmployeeUI() {
