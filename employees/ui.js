@@ -16,10 +16,12 @@ let runUi = (employees) => {
         //         if (e.key === 'Enter' && input.parentNode.parentNode.tagName === 'FORM') $('find').click()
         //     })
         input.addEventListener('keyup', () => {
-                if (input.parentNode.parentNode.tagName === 'DIV') $('add').click()
-                if (input.parentNode.parentNode.tagName === 'FORM') $('find').click()
-            })
+            if (input.parentNode.parentNode.tagName === 'DIV') $('add').click()
+            if (input.parentNode.parentNode.tagName === 'FORM') $('find').click()
+        })
     }
+    // assignSendOnEnter("searchPane", "searchEmployeesButton");
+    // assignSendOnEnter("addPane", "addEmployeeButton");
 }
 
 let clearEmployeesPlaceholder = () => {
@@ -137,4 +139,16 @@ let openTab = (evt, id) => {
     }
     evt.currentTarget.className += " active";
     $(id).style.display = 'block'
+}
+
+function assignSendOnEnter(paneId, buttonId) {
+    let allInput = document.querySelectorAll("#" + paneId + " input");
+    for (let input of allInput) {
+        input.addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.querySelector("#" + paneId + " button").click();
+            }
+        });
+    }
 }
