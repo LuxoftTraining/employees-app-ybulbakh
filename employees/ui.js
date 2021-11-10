@@ -6,7 +6,7 @@ let $ = (id) => {
     return document.getElementById(id)
 }
 
-export let runUi = () => {
+export let runUI = () => {
     showEmployees(getEmployees())
     fillSelect($('managerSelect'), getEmployeesOptions())
     $("searchButton").click();
@@ -51,7 +51,7 @@ function showEmployees(employees) {
         }
 
         const removeButton = document.createElement("button");
-        removeButton.innerHTML = "Удалить";
+        removeButton.innerHTML = "Delete";
         removeButton.addEventListener('click',
             () => removeEmployeeUI(employee.id));
         li.appendChild(removeButton);
