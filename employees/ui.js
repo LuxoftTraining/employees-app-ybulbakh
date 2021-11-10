@@ -8,6 +8,18 @@ let runUi = (employees) => {
     showEmployees(employees)
     fillSelect($('managerSelect'), getEmployeesOptions())
     $("searchButton").click();
+
+    for (let input of document.getElementsByTagName('input')) {
+        console.log(input.parentNode.parentNode)
+        // input.addEventListener('keypress', (e) => {
+        //         if (e.key === 'Enter' && input.parentNode.parentNode.tagName === 'DIV') $('add').click()
+        //         if (e.key === 'Enter' && input.parentNode.parentNode.tagName === 'FORM') $('find').click()
+        //     })
+        input.addEventListener('keyup', () => {
+                if (input.parentNode.parentNode.tagName === 'DIV') $('add').click()
+                if (input.parentNode.parentNode.tagName === 'FORM') $('find').click()
+            })
+    }
 }
 
 let clearEmployeesPlaceholder = () => {

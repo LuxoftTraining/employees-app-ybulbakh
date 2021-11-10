@@ -23,10 +23,9 @@
         <p><label for="surname">Surname</label>: <input id="surname" placeholder="Surname"></p>
         <p><label for="managerSelect">Manager</label>:<select id="managerSelect"></select></p>
         <p>
-            <button onclick="addEmployeeUI()">Add</button>
+            <button onclick="addEmployeeUI()" id="add">Add</button>
         </p>
     </div>
-    <div id="employeesPlaceholder"></div>
 </div>
 
 <div id="searchPane" class="tabcontent">
@@ -39,15 +38,17 @@
         <p><label for="managerSearch">Manager</label>: <select id="managerSearch"></select></p>
 
         <p>
-            <button type=button onclick="searchEmployeeUI()">Find</button>
+            <button type=button onclick="searchEmployeeUI()" id="find">Find</button>
         </p>
         <input type="reset" value="Reset form">
     </form>
 </div>
 
-    <script src="employees/employees-json.js"></script>
-    <script src="employees/service.js"></script>
-    <script src="employees/ui.js"></script>
-    <script>runUi(DATA.employees)</script>
+<div id="employeesPlaceholder"></div>
+
+<script src="employees/employees-json.js"></script>
+<script src="employees/service.js"></script>
+<script src="employees/ui.js"></script>
+<script>runUi(DATA.employees)</script>
 </body>
 </html>

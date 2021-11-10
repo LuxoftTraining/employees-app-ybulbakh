@@ -112,8 +112,8 @@ let setEmployeeManager = (id, managerId) => {
 function searchEmployees(name, surname, managerRef) {
     let results = [];
     for (let e of DATA.employees) {
-        if ((!name || e.name === name) &&
-            (!surname || e.surname === surname) &&
+        if ((!name || e.name.indexOf(name)>=0) &&
+            (!surname || e.surname.indexOf(surname)>=0) &&
             (!managerRef || e.managerRef === managerRef)) {
             results.push(e);
         }
