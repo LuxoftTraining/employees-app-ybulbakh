@@ -40,7 +40,7 @@ export class Employee extends Person {
         return getEmployees()
             .filter(e => e.department === dep)
             .map(e => e.salary)
-            .reduce((a, b) => b > a ? a = b : a = a);
+            .reduce((a, b) => b > a ? b : a);
     }
 
     depWithMaxAvgSalary() {
