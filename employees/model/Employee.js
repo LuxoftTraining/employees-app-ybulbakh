@@ -68,8 +68,10 @@ export function jsonToEmployees(employeesJSON) {
     return employees;
 }
 
+
+/*
 window.Employee = Employee;
 
 window.allEmployees = function () {
     return jsonToEmployees(getEmployees());
-}
+}*/

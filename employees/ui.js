@@ -30,7 +30,7 @@ let clearEmployeesPlaceholder = () => {
     document.getElementById(PLACEHOLDER).innerHTML = '';
 }
 
-function showEmployees(employees) {
+/*function showEmployees(employees) {
     clearEmployeesPlaceholder();
     const ul = document.createElement("ul");
 
@@ -80,6 +80,42 @@ function showEmployees(employees) {
     }
     total.appendChild(document.createElement("li")).innerHTML = 'employeesWithSalaryMoreThan 1000: ' + employee.employeesWithSalaryMoreThan(1000)
     total.appendChild(document.createElement("li")).innerHTML = 'depWithMaxSalary: ' + employee.depWithMaxAvgSalary()
+}*/
+/*
+export function showEmployees(employeesJSON) {
+    let employees = jsonToEmployees(employeesJSON);
+    const html = showEmployeesView(employees);
+    document.getElementById(PLACEHOLDER).innerHTML = html;
+}
+*/
+
+function showEmployees(employeesJSON) {
+    let employees = jsonToEmployees(employeesJSON);
+    const html = showEmployeesView(
+        getEmployees(), employees);
+    document.getElementById(PLACEHOLDER).innerHTML =
+        html;
+}
+
+/*
+function showEmployeesView(employees) {
+    let li_items = employees.map(e=>
+        `<li>${e} <button
+		onclick="removeEmployeeUI(${e.id})">X</button>
+	</li>`).join("");
+    return `<ul>${li_items}</ul>`;
+}
+*/
+
+function showEmployeesView(allEmployees, employees) {
+    let li_items = employees.map(e=>
+        `<li>${e} <button 
+		onclick="removeEmployeeUI(${e.id})">X</button>
+     ${employeeManagerView(allEmployees,e.managerRef)}
+      </li>`
+    ).join("");
+
+    return `<ul>${li_items}</ul>`;
 }
 
 export function addEmployeeUI() {
@@ -102,7 +138,7 @@ export function addEmployeeUI() {
     showEmployees(getEmployees());
 }
 
-let removeEmployeeUI = (id) => {
+export let removeEmployeeUI = (id) => {
     removeEmployee(id)
     showEmployees(getEmployees())
 }
@@ -163,4 +199,23 @@ function assignSendOnEnter(paneId, buttonId) {
             }
         });
     }
+}
+
+export function selectView(values) {
+    const values_html = values.map(v=>
+        `<option value="${v.value}" 
+         ${v.selected?'selected':''}>${v.text}</option>`
+    ).join("");
+    return `<select>${values_html}</select>`;
+}
+
+export function employeeManagerView(employees, selectedId) {
+    if (!selectedId) return "";
+    let values = employees.map(e=>{
+        return { text:e.name+" "+e.surname,
+            value:e.id,
+            selected: e.id===selectedId
+        }
+    });
+    return `<span>${selectView(values)}</span>`;
 }
