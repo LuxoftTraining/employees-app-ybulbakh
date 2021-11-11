@@ -43,6 +43,21 @@ export class Employee extends Person {
             .reduce((a, b) => b > a ? a = b : a = a);
     }
 
+    depWithMaxAvgSalary() {
+        return getEmployees()
+            .map(e => [e.department, this.avgSalaryInDep(e.department)])
+            .reduce((a, b) => b.salary > a.salary ? b : a)
+    }
+
+    depEmployees(dep) {
+        return jsonToEmployees(getEmployees()
+            .filter(e => e.department === dep))
+    }
+
+    employeesWithSalaryMoreThan(salary) {
+        return jsonToEmployees(getEmployees()
+            .filter(e => e.salary > salary))
+    }
 }
 
 export function jsonToEmployees(employeesJSON) {

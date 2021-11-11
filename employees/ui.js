@@ -72,11 +72,14 @@ function showEmployees(employees) {
 
         const ul = document.createElement("ul");
         d.appendChild(ul);
+        ul.appendChild(document.createElement("li")).innerHTML = 'Employees: ' + employee.depEmployees(dep);
         ul.appendChild(document.createElement("li")).innerHTML = 'Amount: ' + employee.amountInDep(dep);
         ul.appendChild(document.createElement("li")).innerHTML = 'Sum Salary: ' + employee.sumSalaryInDep(dep);
         ul.appendChild(document.createElement("li")).innerHTML = 'Avg Salary: ' + employee.avgSalaryInDep(dep);
         ul.appendChild(document.createElement("li")).innerHTML = 'Max Salary: ' + employee.maxSalaryInDep(dep);
     }
+    total.appendChild(document.createElement("li")).innerHTML = 'employeesWithSalaryMoreThan 1000: ' + employee.employeesWithSalaryMoreThan(1000)
+    total.appendChild(document.createElement("li")).innerHTML = 'depWithMaxSalary: ' + employee.depWithMaxAvgSalary()
 }
 
 export function addEmployeeUI() {

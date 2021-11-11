@@ -37,7 +37,7 @@ export class Person {
 
     toString() {
         const phones = this.phones ?
-            `Список телефонов: ${this.phones}` : '';
+            `Phones list: ${this.phones}` : '';
         return `
   ${this.fullName} \
   ${this.dateOfBirth} ${this.age} ${phones}`;
